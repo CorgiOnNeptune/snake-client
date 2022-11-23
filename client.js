@@ -17,12 +17,12 @@ const connect = () => {
 
 
   client.on('data', (data) => {
-    console.log(`📬 Server message:\n${data}`);
+    console.log(`\n📬 Server message:\n${data}`);
   });
 
 
   client.on('end', () => {
-    console.log('💀 Game over!');
+    console.log('\r💀 Game over!');
     process.exit();
   });
 
