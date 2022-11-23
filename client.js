@@ -6,14 +6,15 @@ const connect = () => {
     host: '165.227.47.243',
     port: 50541
   });
+  client.setEncoding('utf8');
   console.log('📨 Connecting ... ');
 
-  client.setEncoding('utf8');
 
   client.on('connect', () => {
     console.log('🐍 Connected to Snek 🐍');
     client.write('Name: DOG');
   });
+
 
   client.on('data', (data) => {
     console.log(`📬 Server message:\n${data}`);
@@ -22,6 +23,7 @@ const connect = () => {
 
   client.on('end', () => {
     console.log('💀 Game over!');
+    process.exit();
   });
 
   return client;
