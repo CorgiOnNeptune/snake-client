@@ -2,27 +2,29 @@ const net = require('net');
 
 // Establish connection with game server
 const connect = () => {
-  const conn = net.createConnection({
+  const client = net.createConnection({
     host: '165.227.47.243',
     port: 50541
   });
+  console.log('📨 Connecting ... ');
 
-  conn.setEncoding('utf8');
+  client.setEncoding('utf8');
 
-  conn.on('connect', () => {
+  client.on('connect', () => {
     console.log('🐍 Connected to Snek 🐍');
+    client.write('Name: DOG');
   });
 
-  conn.on('data', (data) => {
-    console.log(`${data}`);
+  client.on('data', (data) => {
+    console.log(`📬 Server message:\n${data}`);
   });
 
 
-  conn.on('end', () => {
-    console.log('Game over!');
+  client.on('end', () => {
+    console.log('💀 Game over!');
   });
 
-  return conn;
+  return client;
 };
 
 module.exports = {
