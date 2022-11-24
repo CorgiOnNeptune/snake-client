@@ -1,7 +1,13 @@
 const {
-  MOVE_KEYS
+  MOVE_KEYS,
 } = require('./constants');
 
+const {
+  loopMessages,
+  stopLoop,
+} = require('./loop-message');
+
+let intervalID;
 let connection;
 
 // Interface to handle user input
@@ -59,19 +65,21 @@ const handleUserInput = (key) => {
     process.stdout.write(`\nSend Message: Woof woof\n`);
     connection.write('Say: Woof woof');
   }
-
+  
   if (key === 't') {
-    let interval = 3000;
-    process.stdout.write(`\nSending Message: @Diamonds on Neptune in ${interval / 1000} seconds.\n`);
+    const message1 = '@Diamonds on Neptune';
+    const message2 = 'Follow on Spotify!';
 
-    setInterval(() => {
-      process.stdout.write(`\nSend Message: @Diamonds on Neptune\n`);
-      connection.write('Say: @Diamonds on Neptune');
-      setTimeout(() => {
-        process.stdout.write(`\nSend Message: Follow on Spotify!\n`);
-        connection.write('Say: Follow on Spotify!');
-      }, 6000);
-    }, interval);
+    // Play first message with no delay
+    loopMessages(message1, message2, connection);
+
+    intervalID = setInterval(() => {
+      loopMessages(message1, message2, connection);
+    }, 6000);
+  }
+
+  if (key === 'y') {
+    stopLoop(intervalID);
   }
 };
 

@@ -6,9 +6,11 @@ const MOVE_KEYS = {
   's': 'Move: down',
   'd': 'Move: right'
 };
+const net = require('net');
 
 module.exports = {
   IP,
   PORT,
-  MOVE_KEYS
+  MOVE_KEYS,
+  net,
 };
